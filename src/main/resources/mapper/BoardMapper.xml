@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hakg.api.mapper.BoardMapper">
+    <select id="getAllBoards" resultType="Board">
+        SELECT *
+          FROM BOARD
+    </select>
+
+    <select id="getBoardById" parameterType="long" resultType="Board">
+        SELECT *
+          FROM BOARD
+         WHERE ID = #{id, jdbcType=NUMERIC}
+    </select>
+
+    <insert id="addBoard">
+        INSERT
+          INTO BOARD
+             ( TITLE
+             , CONTENT
+             , AUTHOR )
+        VALUES
+             ( #{title, jdbcType=VARCHAR}
+             , #{content, jdbcType=VARCHAR}
+             , #{author, jdbcType=VARCHAR} )
+    </insert>
+
+    <update id="updateBoard">
+        UPDATE BOARD
+           SET TITLE = #{title, jdbcType=VARCHAR}
+             , CONTENT = #{content, jdbcType=VARCHAR}
+             , AUTHOR = #{author, jdbcType=VARCHAR}
+         WHERE ID = #{id, jdbcType=NUMERIC}
+    </update>
+
+    <delete id="deleteBoard">
+        DELETE
+          FROM BOARD
+         WHERE ID = #{id, jdbcType=NUMERIC}
+    </delete>
+
+</mapper>
