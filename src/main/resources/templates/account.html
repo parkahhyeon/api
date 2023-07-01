@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
 </head>
-<body>
 
+<body>
 <div class="login-page">
-    <div class="login-content login-content-signin">
+    <main class="login-content login-content-signin">
         <div>
             <h2>Log in</h2>
             <form class="wrapper-box" role="form" th:action="@{/login}" method="post">
@@ -19,12 +21,13 @@
                 <input type="password"
                        class="form-control form-control-password"
                        placeholder="Password"
+                       autocomplete="off"
                        required>
                 <a class="outer-link pull-left" href="#/forgot">Forgot Password</a>
                 <button type="submit" class="btn btn-submit btn-default pull-right">Log in</button>
             </form>
         </div>
-    </div>
+    </main>
 
     <div class="login-content login-content-signup ng-hide">
         <div>
@@ -49,11 +52,11 @@
 
     <div class="login-switcher">
         <div class="login-switcher-signin">
-            <h3>Have an account?</h3>
+            <h3>Have an member?</h3>
             <button th:onclick="showSignIn=false">Login</button>
         </div>
         <div class="login-switcher-signup">
-            <h3>Don't have an account?</h3>
+            <h3>Don't have an member?</h3>
             <button th:onclick="showSignIn=true">Sign Up</button>
         </div>
     </div>
