@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
@@ -32,36 +30,45 @@
     <div class="login-content login-content-signup ng-hide">
         <div>
             <h2>Sign Up</h2>
-            <form class="wrapper-box" role="form" th:action="@{/register}" method="post">
+            <form class="wrapper-box" role="form" th:action="@{/signup}" method="post">
                 <input type="text"
                        class="form-control form-control-username"
                        placeholder="Username"
+                       name="username"
                        required>
                 <input type="email"
                        class="form-control form-control-email"
                        placeholder="Email address"
+                       name="email"
                        required>
                 <input type="password"
                        class="form-control form-control-password"
                        placeholder="Password"
+                       name="password"
                        required>
                 <button type="submit" class="btn btn-submit btn-default pull-right">Sign up</button>
+
             </form>
         </div>
     </div>
 
+    <div>
+
+    </div>
     <div class="login-switcher">
         <div class="login-switcher-signin">
             <h3>Have an member?</h3>
-            <button th:onclick="showSignIn=false">Login</button>
+            <button id="signInButton" hidden="true">Sign In</button>
         </div>
         <div class="login-switcher-signup">
             <h3>Don't have an member?</h3>
-            <button th:onclick="showSignIn=true">Sign Up</button>
+            <button id="signUpButton">Sign Up</button>
         </div>
     </div>
 
 </div>
 
+<!-- account.js 파일을 가져옴 -->
+<script src="js/account.js"></script>
 </body>
 </html>

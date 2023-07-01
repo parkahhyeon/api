@@ -1,6 +1,7 @@
 package com.hakg.api.mapper;
 
 import com.hakg.api.domain.Board;
+import com.hakg.api.domain.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

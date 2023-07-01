@@ -1,16 +1,23 @@
 package com.hakg.api;
 
-import com.hakg.core.security.SecurityConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
-@Import(SecurityConfig.class)
+@ComponentScan(basePackages = "com.hakg.api")
 public class ApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApiApplication.class, args);
+	}
+
+	@Bean
+	public PasswordEncoder passwordUtEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 }
