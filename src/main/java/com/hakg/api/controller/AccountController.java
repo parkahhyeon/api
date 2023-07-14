@@ -2,6 +2,7 @@ package com.hakg.api.controller;
 
 import com.hakg.api.domain.Board;
 import com.hakg.api.domain.User;
+import com.hakg.api.mapper.BoardMapper;
 import com.hakg.api.service.AccountService;
 import com.hakg.api.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -13,38 +14,28 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@Controller
+@Controller     // 해당 클래스가 컨트롤러임을 알리고 Bean으로 등록하기 위함
 public class AccountController {
 
-//    @Autowired
-    private final AccountService accountService;    // 필드 주입
+    private final AccountService accountService;
+    private final String BOARD = "board";
+    private BoardService boardService;
 
     @Autowired
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
     }
 
-    /*
-    * 생성자 주입
-     private final AccountService accountService;
-        public UserController(AccountService accountService) {
-            this.accountService = accountService;
-        }
-    * */
-//
-//    @GetMapping("/login")
-//    public String loginForm(Model model) {
-//        model.addAttribute("member", new Member());
-//        return "account";
-//    }
-    @GetMapping("/login")
-    public String loginForm() {
-        return "account";
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("boardList", boardService.getAllBoards());
+        model.addAttribute(BOARD, new Board());
+        return BOARD;
     }
 
     @GetMapping("/signup")
     public String signupForm(Model model) {
-        model.addAttribute("user", new User());     // 회원가입을 위한  빈 Member 객체를 모델에 추가
+        model.addAttribute("user", new User());     // 회원가입을 위한  빈 User 객체를 모델에 추가
         return "signup";    // 회원가입 페이지로 이동하는 뷰 이름
     }
 
@@ -59,5 +50,16 @@ public class AccountController {
 
         accountService.signUp(user);
         return "redirect:/login";   // 회원가입 성공 시 로그인 페이지로 리다이렉트
+    }
+
+//    @GetMapping("/login")
+//    public String loginForm(Model model) {
+//        model.addAttribute("member", new Member());
+//        return "account";
+//    }
+
+    @GetMapping("/login")
+    public String loginForm() {
+        return "account";
     }
 }

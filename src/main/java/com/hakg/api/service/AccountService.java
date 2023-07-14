@@ -1,27 +1,32 @@
 package com.hakg.api.service;
 
 import com.hakg.api.domain.User;
-import com.hakg.api.mapper.BoardMapper;
-import com.hakg.api.mapper.MemberMapper;
+import com.hakg.api.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor    // 밑의 UserMapper의 생성자를 쓰지 않기 위해서
 public class AccountService {
 
-//    private final BoardMapper boardMapper;
-    private final MemberMapper memberMapper;
+    //    private final BoardMapper boardMapper;
+    private final UserMapper userMapper;
 
     private final PasswordEncoder passwordUtEncoder;
 
-    /*public AccountService(MemberMapper memberMapper, PasswordEncoder passwordEncoder) {
+    /*public AccountService(UserMapper memberMapper, PasswordEncoder passwordEncoder) {
         this.memberMapper = memberMapper;
         this.passwordEncoder = passwordEncoder;
     }*/
+
+    public String signUp(User user) {
+        user.setPwd(passwordUtEncoder.encode(user.getPwd()));
+        userMapper.signUp(user);
+
+        return user.getUserId();
+    }
 
     public boolean login(String username, String password) throws UsernameNotFoundException {
         // 사용자 조회
@@ -39,12 +44,5 @@ public class AccountService {
 
         // 로그인 성공
         return true;
-    }
-
-    public String signUp(User user) {
-        user.setPwd(passwordUtEncoder.encode(user.getPwd()));
-        memberMapper.signUp(user);
-
-        return user.getUserId();
     }
 }
